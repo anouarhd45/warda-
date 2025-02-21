@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>warda l9arda</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-image: url(back+.jpeg);
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        .container {
+            background-image: url(backě.jpg);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+            width: 400px;
+            position: relative;
+        }
+        h1 {
+            color: #ff1500;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        .gif img {
+            width: 120px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            position: absolute;
+            transition: all 0.5s ease-in-out;
+        }
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .button {
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            width: 100%;
+        }
+        #yesButton {
+            background-color: #4CAF50;
+            color: white;
+        }
+        #yesButton:hover {
+            background-color: #45a049;
+        }
+        #noButton {
+            background-color: #f44336;
+            color: white;
+        }
+        #noButton:hover {
+            background-color: #e53935;
+        }
+        #message {
+            align-items: center;
+            margin-top: 5px;
+            font-size: 1.2rem;
+            color: #ff1500;
+            font-weight: bold;
+            animation: fadeIn s ease;
+        }
+        .reaction-image {
+            display: none;
+            margin-top: 5px;
+            width: 150px;
+            border-radius: 10px;
+            animation: fadeIn 1s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Do you love me? 💖</h1>
+        
+        <div class="buttons">
+            <button id="yesButton" class="button">Yes</button>
+            <button id="noButton" class="button">No</button>
+        </div>
+
+        <div id="message"></div>
+
+        <img id="happyImage" class="reaction-image" src="cnm.gif" alt="Happy Reaction">
+        
+        <img id="sadImage" class="reaction-image" src="sad.gif" alt="Sad Reaction">
+    </div>
+
+    <script>
+        const yesButton = document.getElementById('yesButton');
+        const noButton = document.getElementById('noButton');
+        const message = document.getElementById('message');
+        const movingImage = document.getElementById('movingImage');
+        const happyImage = document.getElementById('happyImage');
+        const sadImage = document.getElementById('sadImage');
+
+        // Move the first image randomly (for mobile & desktop)
+        function moveImage() {
+            const container = document.querySelector(".container");
+            const containerRect = container.getBoundingClientRect();
+
+            const maxX = containerRect.width - 100; 
+            const maxY = containerRect.height - 100; 
+
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+
+            movingImage.style.left = `${randomX}px`;
+            movingImage.style.top = `${randomY}px`;
+        }
+
+        yesButton.addEventListener('click', () => {
+            message.textContent = "I knew it! 😍";
+            message.style.animation = 'fadeIn 1s ease';
+
+            happyImage.style.display = 'block';  // Show happy image
+            sadImage.style.display = 'none';    // Hide sad image
+        });
+
+        noButton.addEventListener('click', () => {
+            let fontSize = parseInt(window.getComputedStyle(noButton).fontSize);
+            fontSize += 5;
+            noButton.style.fontSize = fontSize + 'px';
+            noButton.textContent = 'really ? 😭 '.repeat(noButton.textContent.split('really 😭 ').length) + ' reallyyyyyyy ';
+            noButton.style.transition = 'all 0.3s ease';
+
+            sadImage.style.display = 'block';  // Show sad image
+            happyImage.style.display = 'none'; // Hide happy image
+
+            moveImage();  // Move first image randomly
+        });
+    </script>
+
+</body>
+</html>
